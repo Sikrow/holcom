@@ -5,7 +5,7 @@ import { commerce } from './lib/commerce'; //this does all the backend stuff
 import { Products, Navbar } from './components'
 // the above is the same as below, but you need to have an index.js file in the components folder. 
 //import Products  from './components/Products/Products';
-//import Navbar from './components/Navbar/Navbar';
+//import Navbar from './components/Navbar/Navbar'; 
 
 const App = () => {
 
@@ -37,7 +37,7 @@ const App = () => {
     }, []);
 
     console.log(products);
-    console.log(cart)
+    console.log(cart);
 
     return (
 
