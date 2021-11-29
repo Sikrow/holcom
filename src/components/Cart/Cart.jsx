@@ -12,7 +12,7 @@ const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart
     const EmptyCart = () => (
         <Typography variant="subtitle1">
             Du har ingen vare i din indkøbskurv
-            <Link to="/" className={classes.link}>Tilføj nogle!</Link>
+            <Link to="/" className={classes.link}> - Tilføj nogle!</Link>
         </Typography>
     );
 
