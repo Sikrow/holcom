@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 
 import { commerce } from './lib/commerce'; //this does all the backend stuff
 
-import { Products, Navbar, Cart } from './components'
+import { Products, Navbar, Cart, Checkout } from './components'
 // the above is the same as below, but you need to have an index.js file in the components folder. 
 //import Products  from './components/Products/Products';
 //import Navbar from './components/Navbar/Navbar'; 
@@ -67,16 +67,15 @@ const App = () => {
             <div>
                 <Navbar totalItems={cart.total_items}/>
                 <Routes>
-                    <Route exact path="/" element={<Products products={products} onAddToCart={handleAddToCart}/>} >
-
-                    </Route>
+                    <Route exact path="/" element={<Products products={products} onAddToCart={handleAddToCart}/>}> </Route>
             
                     <Route exact path="/cart" element={<Cart cart={cart} 
                     handleUpdateCartQty={handleUpdateCartQty}
                     handleRemoveFromCart={handleRemoveFromCart}
                     handleEmptyCart={handleEmptyCart} />}>
-                        
                     </Route>
+
+                    <Route exact path="/checkout" element={<Checkout products={products} onAddToCart={handleAddToCart}/>}></Route>
                 </Routes>
             </div>
         </Router>

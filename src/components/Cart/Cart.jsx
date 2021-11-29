@@ -12,7 +12,7 @@ const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart
     const EmptyCart = () => (
         <Typography variant="subtitle1">
             Du har ingen vare i din indkøbskurv
-            <Link to="/" className={classes.link}> - Tilføj nogle!</Link>
+            <Link to="/" className={classes.link}>   - Tilføj nogle!</Link>
         </Typography>
     );
 
@@ -31,7 +31,7 @@ const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart
                 </Typography>
                 <div>
                     <Button className={classes.emptyButton} size="large" type="button" variant="contained" color="secondary" onClick={handleEmptyCart}>Tøm inkøbskurv</Button>
-                    <Button className={classes.checkoutButton} size="large" type="button" variant="contained" color="primary">Betaling</Button>
+                    <Button component={Link} to="/checkout" className={classes.checkoutButton} size="large" type="button" variant="contained" color="primary">Betaling</Button>
                 </div>
         </div>
         </>
