@@ -51,58 +51,55 @@ const App = () => {
 
   const fetchCart = async () => {
     const cart = await commerce.cart.retrieve();
-
-    console.log(products);
-    console.log(cart);
-
-    useEffect(() => {
-      fetchProducts();
-      fetchCart();
-    }, []);
-
-    console.log(products);
-    console.log(cart);
-
-    return (
-      <Router>
-        <div>
-          <Navbar totalItems={cart.total_items} />
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={
-                <Products products={products} onAddToCart={handleAddToCart} />
-              }
-            >
-              {" "}
-            </Route>
-
-            <Route
-              exact
-              path="/cart"
-              element={
-                <Cart
-                  cart={cart}
-                  handleUpdateCartQty={handleUpdateCartQty}
-                  handleRemoveFromCart={handleRemoveFromCart}
-                  handleEmptyCart={handleEmptyCart}
-                />
-              }
-            ></Route>
-
-            <Route
-              exact
-              path="/checkout"
-              element={
-                <Checkout products={products} onAddToCart={handleAddToCart} />
-              }
-            ></Route>
-          </Routes>
-        </div>
-      </Router>
-    );
   };
+
+  useEffect(() => {
+    fetchProducts();
+    fetchCart();
+  }, []);
+
+  console.log(products);
+  console.log(cart);
+
+  return (
+    <Router>
+      <div>
+        <Navbar totalItems={cart.total_items} />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <Products products={products} onAddToCart={handleAddToCart} />
+            }
+          >
+            {" "}
+          </Route>
+
+          <Route
+            exact
+            path="/cart"
+            element={
+              <Cart
+                cart={cart}
+                handleUpdateCartQty={handleUpdateCartQty}
+                handleRemoveFromCart={handleRemoveFromCart}
+                handleEmptyCart={handleEmptyCart}
+              />
+            }
+          ></Route>
+
+          <Route
+            exact
+            path="/checkout"
+            element={
+              <Checkout products={products} onAddToCart={handleAddToCart} />
+            }
+          ></Route>
+        </Routes>
+      </div>
+    </Router>
+  );
 };
 
 export default App;
