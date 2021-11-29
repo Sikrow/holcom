@@ -2,6 +2,7 @@ import React from 'react'
 
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
+import { Link, useLocation } from 'react-router-dom';
 
 import logo from '../../assets/Fire_giant.png'
 import useStyles from './styles';
@@ -9,6 +10,9 @@ import useStyles from './styles';
 
 const Navbar = ({ totalItems }) => {
     const classes = useStyles();
+
+    const location = useLocation();
+    
     return (
         <>
             <AppBar position="fixed" className={classes.appBar} color="inherit">
@@ -19,7 +23,8 @@ const Navbar = ({ totalItems }) => {
                     </Typography>
                     <div className={classes.grow}/> 
                     <div className={classes.button}>
-                        <IconButton aria-label="Kurv" color="inherit">
+                        
+                        <IconButton component={Link} to="/cart" aria-label="Kurv" color="inherit">
                             <Badge badgeContent={totalItems} color="secondary" >
                                 <ShoppingCart/>
                             </Badge>

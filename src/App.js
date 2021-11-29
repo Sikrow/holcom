@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import { commerce } from "./lib/commerce"; //this does all the backend stuff
 
-import { Products, Navbar, Cart } from "./components";
+import { Products, Navbar, Cart, Checkout } from "./components";
 // the above is the same as below, but you need to have an index.js file in the components folder.
 //import Products  from './components/Products/Products';
 //import Navbar from './components/Navbar/Navbar';
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -29,21 +31,78 @@ const App = () => {
     setCart(cart);
   };
 
-  useEffect(() => {
-    fetchProducts();
-    fetchCart();
-  }, []);
+  const handleUpdateCartQty = async (productId, quantity) => {
+    const response = await commerce.cart.update(productId, { quantity });
 
-  console.log(products);
-  console.log(cart);
+    setCart(response.cart);
+  };
 
-  return (
-    <div>
-      <Navbar totalItems={cart.total_items} />
-      <Products products={products} onAddToCart={handleAddToCart} />
-      {/* <Cart cart={cart}/> */}
-    </div>
-  );
+  const handleRemoveFromCart = async (productId) => {
+    const response = await commerce.cart.remove(productId);
+
+    setCart(response.cart);
+  };
+
+  const handleEmptyCart = async () => {
+    const response = await commerce.cart.empty();
+
+    setCart(response.cart);
+  };
+
+  const fetchCart = async () => {
+    const cart = await commerce.cart.retrieve();
+
+    console.log(products);
+    console.log(cart);
+
+    useEffect(() => {
+      fetchProducts();
+      fetchCart();
+    }, []);
+
+    console.log(products);
+    console.log(cart);
+
+    return (
+      <Router>
+        <div>
+          <Navbar totalItems={cart.total_items} />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Products products={products} onAddToCart={handleAddToCart} />
+              }
+            >
+              {" "}
+            </Route>
+
+            <Route
+              exact
+              path="/cart"
+              element={
+                <Cart
+                  cart={cart}
+                  handleUpdateCartQty={handleUpdateCartQty}
+                  handleRemoveFromCart={handleRemoveFromCart}
+                  handleEmptyCart={handleEmptyCart}
+                />
+              }
+            ></Route>
+
+            <Route
+              exact
+              path="/checkout"
+              element={
+                <Checkout products={products} onAddToCart={handleAddToCart} />
+              }
+            ></Route>
+          </Routes>
+        </div>
+      </Router>
+    );
+  };
 };
 
 export default App;
