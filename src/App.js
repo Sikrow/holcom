@@ -49,10 +49,6 @@ const App = () => {
     setCart(response.cart);
   };
 
-  const fetchCart = async () => {
-    const cart = await commerce.cart.retrieve();
-  };
-
   useEffect(() => {
     fetchProducts();
     fetchCart();
