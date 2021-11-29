@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 
 import { commerce } from './lib/commerce'; //this does all the backend stuff
 
-import { Products, Navbar } from './components'
+import { Products, Navbar, Cart } from './components'
 // the above is the same as below, but you need to have an index.js file in the components folder. 
 //import Products  from './components/Products/Products';
 //import Navbar from './components/Navbar/Navbar'; 
@@ -43,7 +43,8 @@ const App = () => {
 
         <div>
             <Navbar totalItems={cart.total_items}/>
-            <Products products={products} onAddToCart={handleAddToCart}/>
+            {/*<Products products={products} onAddToCart={handleAddToCart}/> */}
+            <Cart cart={cart}/>
         </div>
         
     )
