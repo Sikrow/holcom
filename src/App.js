@@ -1,54 +1,49 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 
-import { commerce } from './lib/commerce'; //this does all the backend stuff
+import { commerce } from "./lib/commerce"; //this does all the backend stuff
 
-import { Products, Navbar, Cart } from './components'
-// the above is the same as below, but you need to have an index.js file in the components folder. 
+import { Products, Navbar, Cart } from "./components";
+// the above is the same as below, but you need to have an index.js file in the components folder.
 //import Products  from './components/Products/Products';
-//import Navbar from './components/Navbar/Navbar'; 
+//import Navbar from './components/Navbar/Navbar';
 
 const App = () => {
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState({});
 
-    const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState({})
+  const fetchProducts = async () => {
+    const { data } = await commerce.products.list();
 
-    const fetchProducts = async () => {
-        const { data } = await commerce.products.list();
+    setProducts(data);
+  };
 
-        setProducts(data);
+  const handleAddToCart = async (productId, quantity) => {
+    const item = await commerce.cart.add(productId, quantity);
 
-    }
+    setCart(item.cart);
+  };
 
-    const handleAddToCart = async (productId, quantity) => {
-        const item = await commerce.cart.add(productId, quantity);
+  const fetchCart = async () => {
+    const cart = await commerce.cart.retrieve();
 
-        setCart(item.cart);
-    }
+    setCart(cart);
+  };
 
-    const fetchCart = async () => {
-        const cart = await commerce.cart.retrieve();
+  useEffect(() => {
+    fetchProducts();
+    fetchCart();
+  }, []);
 
-        setCart(cart)
-    }
+  console.log(products);
+  console.log(cart);
 
-    useEffect(() => {
-        fetchProducts();
-        fetchCart();
-    }, []);
-
-    console.log(products);
-    console.log(cart);
-
-    return (
-
-        <div>
-            <Navbar totalItems={cart.total_items}/>
-            {/*<Products products={products} onAddToCart={handleAddToCart}/> */}
-            <Cart cart={cart}/>
-        </div>
-        
-    )
-}
+  return (
+    <div>
+      <Navbar totalItems={cart.total_items} />
+      <Products products={products} onAddToCart={handleAddToCart} />
+      {/* <Cart cart={cart}/> */}
+    </div>
+  );
+};
 
 export default App;
-
