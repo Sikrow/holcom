@@ -5,10 +5,10 @@ import { loadStrip } from '@stripe/stripe-js';
 
 import review from './Review';
 
-const PaymentForm = ({}) => {
+const PaymentForm = ({ checkoutToken }) => {
   return (
     <>
-    <Review/>
+    <Review checkoutToken={checkoutToken}/>
     </>
   )
 };
