@@ -7,6 +7,8 @@ import { Products, Navbar, Cart } from './components'
 //import Products  from './components/Products/Products';
 //import Navbar from './components/Navbar/Navbar'; 
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 const App = () => {
 
     const [products, setProducts] = useState([]);
@@ -40,13 +42,20 @@ const App = () => {
     console.log(cart);
 
     return (
+        <Router>
+            <div>
+                <Navbar totalItems={cart.total_items}/>
+                <Routes>
+                    <Route exact path="/" element={<Products products={products} onAddToCart={handleAddToCart}/>} >
 
-        <div>
-            <Navbar totalItems={cart.total_items}/>
-            {/*<Products products={products} onAddToCart={handleAddToCart}/> */}
-            <Cart cart={cart}/>
-        </div>
-        
+                    </Route>
+            
+                    <Route exact path="/cart" element={<Cart cart={cart}/>}>
+                        
+                    </Route>
+                </Routes>
+            </div>
+        </Router>
     )
 }
 
