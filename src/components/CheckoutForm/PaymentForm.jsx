@@ -17,13 +17,16 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
 
+  
+
     if (error) {
       console.log('[error]', error);
     } else {
       const orderData = {
         line_items: checkoutToken.live.line_items,
         customer: { firstname: shippingData.firstName, lastname: shippingData.lastName, email: shippingData.email },
-        shipping: { name: 'Europe', street: shippingData.address1, town_city: shippingData.city, postal_zip_code: shippingData.zip, country: shippingData.shippingCountry },
+        shipping: { name: 'Europe', street: shippingData.address1, town_city: shippingData.city, county_state: shippingData.shippingSubdivision, postal_zip_code: shippingData.zip, country: shippingData.shippingCountry },
+        fulfillment: { shipping_method: "ship_RqEv5x6jAwZz4j" },
         payment: {
           gateway: 'stripe',
           stripe: {
@@ -42,7 +45,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
     <>
       <Review checkoutToken={checkoutToken} />
       <Divider />
-      <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>Payment method</Typography>
+      <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>Betalings metoder</Typography>
       <Elements stripe={stripePromise}>
         <ElementsConsumer>{({ elements, stripe }) => (
           <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
