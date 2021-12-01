@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { commerce } from "./lib/commerce"; //this does all the backend stuff
 
-import { Products, Navbar, Cart, Checkout } from "./components";
+import { Hero, Products, Navbar, Cart, Checkout } from "./components";
 // the above is the same as below, but you need to have an index.js file in the components folder.
 //import Products  from './components/Products/Products';
 //import Navbar from './components/Navbar/Navbar';
@@ -80,6 +80,7 @@ const App = () => {
     <Router>
       <div>
         <Navbar totalItems={cart.total_items} />
+        <Hero/>
         <Routes>
           <Route
             exact
