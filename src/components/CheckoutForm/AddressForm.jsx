@@ -70,6 +70,8 @@ const AddressForm = ({ checkoutToken, test }) => {
             test({
               ...data,
               shippingCountry,
+              shippingSubdivision, 
+              shippingOption
             })
           )}
         >
