@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import { commerce } from "./lib/commerce"; //this does all the backend stuff
 
-import { Products, Navbar, Cart, Checkout } from "./components";
+import {
+  Products,
+  Navbar,
+  Cart,
+  Checkout,
+  Login,
+  AuthService,
+} from "./components";
 // the above is the same as below, but you need to have an index.js file in the components folder.
 //import Products  from './components/Products/Products';
 //import Navbar from './components/Navbar/Navbar';
@@ -13,7 +20,10 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState({});
+  const API_URL = process.env.REACT_APP_API;
+  const authService = new AuthService(`${API_URL}/users/authenticate`);
 
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
@@ -54,17 +64,31 @@ const App = () => {
   const refreshCart = async () => {
     const newCart = await commerce.cart.refresh();
 
-    setCart(newCart)
-  }
+    setCart(newCart);
+  };
 
   const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
     try {
-      const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
+      const incomingOrder = await commerce.checkout.capture(
+        checkoutTokenId,
+        newOrder
+      );
       setOrder(incomingOrder);
       refreshCart();
-    }
-    catch (error) {
+    } catch (error) {
       setErrorMessage(error.data.error.errorMessage);
+    }
+  };
+
+  async function login(username, password) {
+    try {
+      const resp = await authService.login(username, password);
+      setUser(resp.Message);
+      console.log(user);
+      console.log("Authentication:", resp);
+      console.log("Authentication:", resp.Token);
+    } catch (e) {
+      console.log("Login:", e);
     }
   }
 
@@ -108,15 +132,20 @@ const App = () => {
             exact
             path="/checkout"
             element={
-              <Checkout 
-              products={products} 
-              cart={cart} 
-              onAddToCart={handleAddToCart}
-              order={order}
-              onCaptureCheckout={handleCaptureCheckout}
-              error={errorMessage}
+              <Checkout
+                products={products}
+                cart={cart}
+                onAddToCart={handleAddToCart}
+                order={order}
+                onCaptureCheckout={handleCaptureCheckout}
+                error={errorMessage}
               />
             }
+          ></Route>
+          <Route
+            exact
+            path="/login"
+            element={<Login login={login} user={user} />}
           ></Route>
         </Routes>
       </div>
