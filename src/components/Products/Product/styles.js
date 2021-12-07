@@ -6,7 +6,7 @@ root: {
 },
 media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '76%', // 16:9
 },
 cardAction: {
 display: 'flex',

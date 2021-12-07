@@ -4,7 +4,7 @@ import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '
 import { ShoppingCart } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
 
-import logo from '../../assets/Fire_giant.png'
+import logo from '../../assets/holcom.png'
 import useStyles from './styles';
 
 
@@ -17,7 +17,7 @@ const Navbar = ({ totalItems }) => {
         <>
             <AppBar position="fixed" className={classes.appBar} color="inherit">
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title} color="inherit">
+                    <Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit">
                         <img src={logo} alt="Holcom" height="25px" className={classes.image}/>
                         Holcom
                     </Typography>
