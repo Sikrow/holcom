@@ -104,7 +104,7 @@ const App = () => {
     <Router>
       <div>
         <Navbar totalItems={cart.total_items} />
-        <Hero />
+        {/* <Hero /> */}
         <Routes>
           <Route
             exact

@@ -21,9 +21,13 @@ const Navbar = ({ totalItems }) => {
                         <img src={logo} alt="Holcom" height="25px" className={classes.image}/>
                         Holcom
                     </Typography>
+                    <Typography component={Link} to="/login" variant="h6" className={classes.title} color="inherit">
+                        
+                        Profile
+                    </Typography>
                     <div className={classes.grow}/> 
                     <div className={classes.button}>
-                        
+                    
                         <IconButton component={Link} to="/cart" aria-label="Kurv" color="inherit">
                             <Badge badgeContent={totalItems} color="secondary" >
                                 <ShoppingCart/>

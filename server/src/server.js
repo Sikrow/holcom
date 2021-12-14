@@ -12,11 +12,12 @@ const dotenv = require("dotenv");
 const appName = "Server API";
 const port = process.env.PORT || 8080;
 
+
 /**** Configuration ****/
 dotenv.config();
 const app = express();
 const server = require("http").createServer(app);
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = /* process.env.MONGO_URL || */ "mongodb://localhost/holcom";
 server.listen(port, () => console.log(`${appName} running on port ${port}!`));
 
 // Connect db
