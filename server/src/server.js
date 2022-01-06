@@ -17,7 +17,7 @@ const port = process.env.PORT || 8080;
 dotenv.config();
 const app = express();
 const server = require("http").createServer(app);
-const MONGO_URL = /* process.env.MONGO_URL || */ "mongodb://localhost/holcom";
+const MONGO_URL = process.env.MONGO_URL;
 server.listen(port, () => console.log(`${appName} running on port ${port}!`));
 
 // Connect db
